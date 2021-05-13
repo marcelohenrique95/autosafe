@@ -1,0 +1,137 @@
+<app-card cardTitle="Parceiros." [options]="false" blockClass="table-border-style">
+<form action="javascript:" [formGroup]="partnerRegisterForm" (ngSubmit)="registerPartner()">
+  <div class="row"  *ngIf="showMsg">
+    <div class="col-xs-12">
+      <p class="alert alert-success">
+          <strong>Dados alterados com sucesso!</strong>
+      </p>
+    </div>
+  </div>
+  <h5 class="mt-5">Selecione o tipo de pessoa</h5>
+  <hr>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" formControlName="inputTypePersonPF"
+    value="PF" [(ngModel)]="partnerType" name="inputTypePersonPF" (change)="handleChange('PF')">
+    <label class="custom-control-label" for="customRadioInline1">PESSOA FÍSICA</label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" formControlName="inputTypePersonPJ"
+    value="PJ" [(ngModel)]="partnerType" name="inputTypePersonPJ" (change)="handleChange('PJ')">
+    <label class="custom-control-label" for="customRadioInline2">PESSOA JURÍDICA</label>
+  </div>
+  <br><br><br>
+  <div class="form-row">
+    <div class="form-group col-md-4" *ngIf="partnerType === 'PF'">
+      <label for="inputPrincipalName">Nome</label>
+      <input type="text" class="form-control" id="InputPrincipalName" formControlName="inputPrincipalName" placeholder="Digite seu nome">
+    </div>
+    <div class="form-group col-md-4" *ngIf="partnerType === 'PJ'">
+      <label for="inputPrincipalName">Nome fantasia</label>
+      <input type="text" class="form-control" id="InputPrincipalName" formControlName="inputPrincipalName" placeholder="Digite o nome">
+    </div>
+    <div class="form-group col-md-4" *ngIf="partnerType === 'PF'">
+      <label for="inputSecundaryName">Sobrenome</label>
+      <input type="text" class="form-control" id="InputSecundaryName" formControlName="inputSecundaryName" placeholder="Digite o sobrenome">
+    </div>
+    <div class="form-group col-md-4" *ngIf="partnerType === 'PJ'">
+      <label for="inputSecundaryName">Razão Social</label>
+      <input type="text" class="form-control" id="InputSecundaryName" formControlName="inputSecundaryName" placeholder="Digite a razão social">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" id="InputEmail" formControlName="inputEmail">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputCellphone">Celular</label>
+      <input type="number" class="form-control" id="InputCellphone" formControlName="inputCellphone">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputTelephone">Telefone</label>
+      <input type="number" class="form-control" id="InputTelephone" formControlName="inputTelephone">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputBirthDate">Nascimento</label>
+      <input type="date" class="form-control" id="InputBirthDate" formControlName="inputBirthDate">
+    </div>
+    <div class="form-group col-md-3" *ngIf="partnerType === 'PF'">
+      <label for="inputDocument">CPF</label>
+      <input type="text" class="form-control" id="InputDocument" formControlName="inputDocument" placeholder="Digte seu CPF">
+    </div>
+    <div class="form-group col-md-3" *ngIf="partnerType === 'PJ'">
+      <label for="inputDocument">CNPJ</label>
+      <input type="text" class="form-control" id="InputDocument" formControlName="inputDocument" placeholder="Digte seu CNPJ">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputBranch">Ramo</label>
+         <ng-multiselect-dropdown
+            [placeholder]="'Selecione o ramo'"
+            [data]="allBranch"
+            formControlName="selectedBranch"
+            [settings]="dropdownSettings"
+            (onSelect)="onItemSelect($event)"
+            (onDeSelect)="onItemDeSelect($event)"
+      >
+        </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="inputZip">CEP</label>
+      <input type="text" class="form-control" id="InputZipCode" formControlName="inputZipCode" placeholder="exemplo 78000-000" (change)="cepComplete()">
+    </div>
+    <div class="form-group col-md-9">
+      <label for="inputAddress">Endereço</label>
+      <input type="text" class="form-control" id="InputComplement" formControlName="inputComplement" placeholder="Rua Osvaldo Cruz, bairro América">
+    </div>
+    <div class="form-group col-md-1">
+      <label for="inputAddress2">Nº</label>
+      <input type="text" class="form-control" id="InputNumber" formControlName="inputNumber" placeholder="nº">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputNeighbor">Bairro</label>
+      <input type="text" class="form-control" id="InputNeighbor" formControlName="inputNeighbor" placeholder="Digite o bairro">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputCity">Cidade</label>
+      <input type="text" class="form-control" id="InputCity" formControlName="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">Estado</label>
+      <select class="mb-3 form-control form-control-lg" formControlName="inputState">
+        <option >selecione</option>
+        <option value="AC">Acre</option>
+        <option value="AL">Alagoas</option>
+        <option value="AP">Amapá</option>
+        <option value="AM">Amazonas</option>
+        <option value="BA">Bahia</option>
+        <option value="CE">Ceará</option>
+        <option value="DF">Distrito Federal</option>
+        <option value="ES">Espírito Santo</option>
+        <option value="GO">Goiás</option>
+        <option value="MA">Maranhão</option>
+        <option value="MT">Mato Grosso</option>
+        <option value="MS">Mato Grosso do Sul</option>
+        <option value="MG">Minas Gerais</option>
+        <option value="PA">Pará</option>
+        <option value="PB">Paraíba</option>
+        <option value="PR">Paraná</option>
+        <option value="PE">Pernambuco</option>
+        <option value="PI">Piauí</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="RN">Rio Grande do Norte</option>
+        <option value="RS">Rio Grande do Sul</option>
+        <option value="RO">Rondônia</option>
+        <option value="RR">Roraima</option>
+        <option value="SC">Santa Catarina</option>
+        <option value="SP">São Paulo</option>
+        <option value="SE">Sergipe</option>
+        <option value="TO">Tocantins</option>
+        <option value="EX">Estrangeiro</option>
+      </select>
+    </div>
+
+  </div>
+
+  <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+</app-card>

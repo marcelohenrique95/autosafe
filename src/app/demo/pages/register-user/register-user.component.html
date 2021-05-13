@@ -1,0 +1,30 @@
+
+<div class="col-sm-12">
+  <app-card cardTitle="Cadastro de usuário" [options]="false">
+    <h5>Digite seus dados</h5>
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <form id="formRegister" [formGroup]="userRegisterForm" (ngSubmit)="registerUser()" >
+          <div class="form-group">
+            <label for="InputName">Nome*</label>
+            <input type="" class="form-control" id="InputName" placeholder="Digite seu nome" formControlName="inputName">
+            <small id="nameHelp" class="form-text text-muted" required>Digite seu nome</small>
+          </div>
+          <div class="form-group">
+            <label for="InputEmail1">Email*</label>
+            <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="exemple@hotmail.com" formControlName="inputEmail">
+            <small id="emailHelp" class="form-text text-muted" required>Digite um email válido.</small>
+          </div>
+          <div class="form-group">
+            <label for="InputPassword">Senha*</label>
+            <input type="password" class="form-control" id="InputPassword" placeholder="Digite sua senha" required formControlName="inputPassword">
+          </div>
+          <div *ngIf="userRegister != null" class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="inputActive">
+            <label class="form-check-label" for="exampleCheck1" >Usuário ativo</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Confirma</button>
+        </form>
+      </div>
+      </div>

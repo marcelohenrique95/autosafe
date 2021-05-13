@@ -1,0 +1,36 @@
+<app-card cardTitle="Meus serviços cadastrados" [options]="false" blockClass="table-border-style">
+  <div style="text-align: right;">
+    <button type="submit" style="right: 110px;" class="btn btn-secondary" [routerLink]="['/register-services']"><i
+        class="feather icon-user-plus"></i>Novo</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+
+          <th>#</th>
+          <th>Título</th>
+          <th>Ramo</th>
+          <th>Valor</th>
+          <th>Tempo</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let service of allServices | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index ; ">
+
+          <td>{{service.id}}</td>
+          <td>{{service.title}}</td>
+          <td>{{service.branchs}}</td>
+          <td>{{service.value}}</td>
+          <td>{{service.estimatedMinutes}}</td>
+          <td><button (click)="ediService(service)" class="btn-sm btn-icon btn-primary"><i
+                class="feather icon-edit"></i></button></td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" style="text-align: center;"
+      nextLabel="Próximo"></pagination-controls>
+  </div>
+</app-card>

@@ -1,0 +1,183 @@
+<app-card cardTitle="Adicionar serviço"[options]="false" blockClass="table-border-style">
+  <div style="text-align: left">
+    <form action="javascript:" [formGroup]="myserviceForm" (ngSubmit)="registerService()">
+      <div class="row" *ngIf="showMsg">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+            <strong>Serviço cadastrado com sucesso!</strong>
+          </p>
+        </div>
+      </div>
+      <div class="form-group col-md-11">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="inputTitle">Título*</label>
+            <input type="text" class="form-control" id="InputTitle" formControlName="inputTitle"
+              placeholder="Ex: Troca de óleo" />
+          </div>
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputPrice">Valor*</label>
+            <input class="form-control" id="InputPrice" formControlName="inputPrice" placeholder="150.00" currencyMask
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+          </div>
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-3">
+            <label for="inputBranch">Ramo*</label>
+            <ng-multiselect-dropdown [placeholder]="'Selecione'" [data]="allBranch" formControlName="branchSelected"
+              [settings]="dropdownBranchSettings" (onSelect)="onItemSelectBranch($event)"
+              (onDeSelect)="onItemDeSelectBranch($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-11">
+        <div class="form-row">
+          <div class="form-group col-md-5">
+            <label for="inputDescription">Descrição*</label>
+            <textarea formControlName="inputDescription" class="form-control" id="InputDescription" rows="4"></textarea>
+          </div>
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputTime">Tempo*</label>
+            <input type="number" class="form-control" id="InputTime" formControlName="inputTime" placeholder="00:00" />
+          </div>
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputSelectTime">HORAS/MIN</label>
+            <select class="mb-3 form-control" formControlName="inputSelectTime" (change)="changeTime($event)">
+              <option value="1">Minuto(s)</option>
+              <option value="2">Hora(s)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-12">
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label for="inputEnd">Data Fim</label>
+            <input type="date" class="form-control" id="InputEnd" formControlName="inputEnd" placeholder="
+             05/04/2021" />
+          </div>
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-4">
+            <label for="customFile">Adicionar imagem</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" (change)="uploadFile($event)" id="customFile"
+                formControlName="inputImg" accept=".jpg,.png" />
+              <label class="custom-file-label" for="customFile">Choose file...</label>
+            </div>
+          </div>
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-4">
+            <label for="saveService"></label>
+            <div>
+              <button type="submit" class="btn btn-success" id="saveService">
+                CADASTRAR SERVIÇO
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-sm-12">
+    <ngb-accordion [closeOthers]="true" activeIds="static-1" class="datta-accordion">
+      <ngb-panel id="static-1">
+        <ng-template ngbPanelTitle>
+          <a href="javascript:">Adicionar veiculo(s)</a>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <div class="form-group col-md-12">
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="inputTypeVehicle">Tipo de veículo</label>
+                <select class="mb-3 form-control" formControlName="inputTypeVehicle"
+                  (change)="changeVehicleType($event)">
+                  <option value="1">CARRO</option>
+                  <option value="2">MOTO</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="inputBrand">Fabricante</label>
+                <select class="mb-3 form-control" formControlName="inputBrand" (change)="changeBrand($event)">
+                  <option>Selecione a marca</option>
+                  <option value="0">Todos</option>
+                  <option *ngFor="let brand of allBrands" [value]="brand.Value">
+                    {{ brand.Label }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="inputModel">Modelo</label>
+                <select class="mb-3 form-control" formControlName="inputModel" (change)="changeModel($event)">
+                  <option>Selecione o modelo</option>
+                  <option value="0">Todos</option>
+                  <option *ngFor="let model of allModels" [value]="model.Value">
+                    {{ model.Label }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-2">
+                <label for="inputFuel">Combustível</label>
+                <select class="mb-3 form-control" formControlName="inputFuel" (change)="changeTypeFuel($event)">
+                  <option value="0">Todos</option>
+                  <option value="1">Flex</option>
+                  <option value="2">Gasolina</option>
+                  <option *ngIf="typeVehicle === '1'" value="3">Diesel</option>
+                  <option *ngIf="typeVehicle === '1'" value="4">Alcool</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="showMsgAddVehicle">
+            <div class="col-xs-12">
+              <p class="alert alert-success">
+                <strong>Veículo cadastrado com sucesso!</strong>
+              </p>
+            </div>
+          </div>
+          <br>
+          <p class="msg_success">{{ showMsgAddVehicle }}</p>
+          <button (click)="setVehicle()" type="button" style="text-align: left" class="btn btn-secondary">
+            <i class="feather icon-user-plus"></i>Adicionar veiculo
+          </button>
+          <br>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Marca</th>
+                  <th>Modelo</th>
+                  <th>Combustivel</th>
+                  <th>Excluir</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="
+                    let vehicle of listVehicles
+                      | paginate: { itemsPerPage: 10, currentPage: paginaAtual };
+                    let i = index
+                  ">
+                  <td>{{ vehicle.idServiceVehicle }}</td>
+                  <td>{{ vehicle.brandName }}</td>
+                  <td>{{ vehicle.modelName }}</td>
+                  <td>{{ vehicle.fuel }}</td>
+                  <td>
+                    <button (click)="deleteVehicle(vehicle.idServiceVehicle)" class="btn-sm btn-icon btn-danger">
+                      <i class="feather icon-trash-2"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" style="text-align: center"
+              nextLabel="Próximo"></pagination-controls>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</app-card>

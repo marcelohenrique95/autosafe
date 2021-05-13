@@ -1,0 +1,25 @@
+<div class="col-sm-12">
+  <app-card cardTitle="Cadastro de ramo" [options]="false">
+    <hr>
+    <div class="row" >
+      <div class="col-md-6" >
+        <form id="formRegister"[formGroup]="branchForm" (ngSubmit)="registerBranch()">
+          <div class="row"  *ngIf="showMsg">
+            <div class="col-xs-12">
+              <p class="alert alert-success">
+                  <strong>Ramo cadastrado com sucesso!</strong>
+              </p>
+            </div>
+          </div>
+          <div class="form-group" >
+            <label for="InputPassword">Descrição</label>
+            <input type="text" class="form-control" id="InputDescription" placeholder="Descreva o serviço" required formControlName="inputDescription">
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="inputDisable">
+            <label class="form-check-label" for="exampleCheck1" >Desativado</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+      </div>
+      </div>

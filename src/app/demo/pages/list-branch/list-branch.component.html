@@ -1,0 +1,26 @@
+<app-card cardTitle="Lista de ramos." [options]="false" blockClass="table-border-style">
+  <div style="text-align: right;">
+  <button type="submit" style="right: 110px;"  class="btn btn-secondary" [routerLink]="['/branch']"><i class="feather icon-plus-circle"></i>Novo</button>
+</div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+
+        <th>#</th>
+        <th>Ramo</th>
+        <th>Status</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let branch of allBranch | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index ; ">
+        <td>{{branch.id}}</td>
+        <td>{{branch.description}}</td>
+        <td>{{branch.disable && 'Inativo' || 'Ativo'}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" style="text-align: center;" nextLabel="Próximo"></pagination-controls>
+  </div>
+</app-card>

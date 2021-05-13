@@ -1,0 +1,34 @@
+<app-card cardTitle="Lista de clientes." [options]="false" blockClass="table-border-style">
+  <div style="text-align: right;">
+  <button type="submit" style="right: 110px;"  class="btn btn-secondary" [routerLink]="['/register-client']"><i class="feather icon-user-plus"></i>Novo</button>
+</div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+
+        <th>#</th>
+        <th>Nome</th>
+        <th>CPF/CNPJ</th>
+        <th>Celular</th>
+        <th>Localização</th>
+        <th>Editar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let client of allClient | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index ; ">
+
+        <td>{{client.id}}</td>
+        <td *ngIf="client.typePerson === 'PF'">{{client.principalName}} {{client.secundaryName}}</td>
+        <td *ngIf="client.typePerson === 'PJ'">{{client.principalName}}</td>
+        <td>{{client.documentNumber}}</td>
+        <td>{{client.cellphoneNumber}}</td>
+        <td>{{client.address.city}} / {{client.address.state}} </td>
+        <td><button (click)="editClient(client)" class="btn-sm btn-icon btn-primary"><i class="feather icon-edit"></i></button></td>
+
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" style="text-align: center;" nextLabel="Próximo"></pagination-controls>
+  </div>
+</app-card>
