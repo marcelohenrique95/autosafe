@@ -4,6 +4,7 @@ import { AuthGuard } from './auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
+import { NewPartnerOutsiteComponent } from './demo/pages/new-partner-outsite/new-partner-outsite.component';
 
 
 const routes: Routes = [
@@ -95,6 +96,14 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
+    children: [
+
+    ]
+  },
+
+  {
+    path: 'new-partner',
+    component: NewPartnerOutsiteComponent,
     children: [
 
     ]

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   urlAws: '',
-  urlApi: ''
+  urlApi: 'http://localhost:8080/'
 };
 
 /*

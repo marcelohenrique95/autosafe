@@ -46,6 +46,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { RegisterServicesComponent } from './demo/pages/register-services/register-services.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { NewPartnerOutsiteComponent } from './demo/pages/new-partner-outsite/new-partner-outsite.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
     ListUserComponent,
     RegisterUserComponent,
     LoginComponent,
+    NewPartnerOutsiteComponent,
     ListPartnerComponent,
     ListProductComponent,
     RegisterProductComponent,
@@ -77,7 +79,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
     CompanyComponent,
     BranchComponent,
     ListBranchComponent,
-    RegisterServicesComponent
+    RegisterServicesComponent,
+    NewPartnerOutsiteComponent
 
   ],
   imports: [

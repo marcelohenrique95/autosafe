@@ -40,7 +40,7 @@
           <div class="form-group col-md-1"></div>
           <div class="form-group col-md-2">
             <label for="inputTime">Tempo*</label>
-            <input type="number" class="form-control" id="InputTime" formControlName="inputTime" placeholder="00:00" />
+            <input class="form-control" id="InputTime" formControlName="inputTime" placeholder="00:00" />
           </div>
           <div class="form-group col-md-1"></div>
           <div class="form-group col-md-2">
@@ -81,7 +81,7 @@
       </div>
     </form>
   </div>
-  <div class="col-sm-12">
+  <div class="col-sm-12" *ngIf="showSelectVehicle">
     <ngb-accordion [closeOthers]="true" activeIds="static-1" class="datta-accordion">
       <ngb-panel id="static-1">
         <ng-template ngbPanelTitle>
@@ -164,7 +164,7 @@
                   <td>{{ vehicle.idServiceVehicle }}</td>
                   <td>{{ vehicle.brandName }}</td>
                   <td>{{ vehicle.modelName }}</td>
-                  <td>{{ vehicle.fuel }}</td>
+                  <td *ngIf="vehicle.fuel === '1'">{{ vehicle.fuel }}</td>
                   <td>
                     <button (click)="deleteVehicle(vehicle.idServiceVehicle)" class="btn-sm btn-icon btn-danger">
                       <i class="feather icon-trash-2"></i>

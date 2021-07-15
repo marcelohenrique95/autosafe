@@ -101,7 +101,7 @@ export class BreadcrumbComponent implements OnInit {
       }
     });
     this.navigationList = result;
-    this.titleService.setTitle(title + ' | Datta Able Angular Template');
+    this.titleService.setTitle(title + ' | Autosafe Parceiros');
   }
 
 }

@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   urlAws: '',
-  urlApi: ''
+  urlApi: 'http://localhost:8080/'
 };

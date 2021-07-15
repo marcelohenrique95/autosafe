@@ -4,11 +4,13 @@ import { UserAuth } from './../model/user-auth.model';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  url = environment.urlApi;
   public currentUserSubject: BehaviorSubject<UserAuth>;
   public currentUser: Observable<UserAuth>;
 
@@ -25,8 +27,8 @@ export class AuthService {
   public logout() {
     localStorage.removeItem('currentUser');
   }
-  public signIn(username: string, password: string): Observable<any>{
-    return this.http.post<any>('http://localhost:8080/authenticate' ,  { username, password });
+  public signIn(username: string, password: string): Observable<any> {
+    return this.http.post<any>(this.url + 'authenticate', { username, password });
   }
 
 }

@@ -20,12 +20,12 @@
         <tr
           *ngFor="let service of allServices | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index ; ">
 
-          <td>{{service.id}}</td>
+          <td>{{service.serviceId}}</td>
           <td>{{service.title}}</td>
-          <td>{{service.branchs}}</td>
+          <td>{{service.branches}}</td>
           <td>{{service.value}}</td>
-          <td>{{service.estimatedMinutes}}</td>
-          <td><button (click)="ediService(service)" class="btn-sm btn-icon btn-primary"><i
+          <td>{{service.estimatedMinutes}} Min</td>
+          <td><button (click)="editService(service)" class="btn-sm btn-icon btn-primary"><i
                 class="feather icon-edit"></i></button></td>
         </tr>
       </tbody>

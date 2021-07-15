@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
     this.loginUser = new LoginModel();
     this.loginUser.email = this.loginUserForm.get('inputEmailLogin').value;
     this.loginUser.password = shajs('sha256').update(this.loginUserForm.get('inputPasswordLogin').value).digest('hex');
-    console.log('SENHACRIPTlogin: ' + this.loginUser.password);
     console.log(this.loginUser);
     this.authService.signIn(this.loginUser.email, this.loginUser.password).subscribe((data: UserAuth) => {
 

@@ -51,7 +51,6 @@ export class RegisterUserComponent implements OnInit {
       this.userRegister.name = this.userRegisterForm.get('inputName').value;
       this.userRegister.email = this.userRegisterForm.get('inputEmail').value;
       this.userRegister.password = shajs('sha256').update(this.userRegisterForm.get('inputPassword').value).digest('hex');
-      console.log('SENHA CRIPT: ' + this.userRegister.password)
       this.userRegister.active = this.userRegisterForm.get('inputActive').value;
       return this.userService.postUser(this.userRegister).subscribe((data: UserModel) => { this.userRegister = data ; this.router.navigate(['list-user']) }, (err) => { console.log(err) });
 

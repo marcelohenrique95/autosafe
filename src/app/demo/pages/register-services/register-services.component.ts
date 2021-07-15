@@ -60,7 +60,7 @@ export class RegisterServicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getterVehicles();
+    //this.getterVehicles();
     this.getterBranch();
     this.myserviceForm = this.fb.group({
       inputTitle: [null], inputPrice: [null],
@@ -73,7 +73,7 @@ export class RegisterServicesComponent implements OnInit {
     })
 
     this.dropdownBranchSettings = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'id',
       textField: 'description',
       itemsShowLimit: 2,
@@ -109,33 +109,33 @@ export class RegisterServicesComponent implements OnInit {
     this.myServiceRegister.lastDateOfService = this.myserviceForm.get('inputEnd').value;
 
     this.myService.postService(this.myServiceRegister).subscribe
-      ((data: MyServiceModel) => { this.myServiceRegister = data; console.log(data); this.showMsg = true; this.uploadImg(); this.showSelectVehicle = true }, (err) => { console.log(err) });
-
-    console.log('OBJETO: ', this.myServiceRegister);
-
-    console.log('ImgUploaded ');
-  }
-
-  uploadImg(){
-    this.myService.postServiceImg(this.formData, this.myServiceRegister.partner.id).subscribe
-      ((data: any) => { }, (err) => { console.log(err) });
+      ((data: MyServiceModel) => { 
+        this.myServiceRegister = data; 
+        console.log(data); 
+        this.showMsg = true; 
+        this.showSelectVehicle = true 
+        
+        this.myService.postServiceImg(this.formData, this.myServiceRegister.id).subscribe
+        ((data: any) =>  {console.log('ImgUploaded '); }, (err) => { console.log(err) });
+      }, (err) => { console.log(err) });    
   }
 
 
   setVehicle() {
     this.vehicleRegister = new VehicleModel();
-    this.vehicleRegister.idService = 11;
+    this.vehicleRegister.idService = this.myServiceRegister.id;
     this.vehicleRegister.idBrand = Number(this.brandSelected);
     this.vehicleRegister.idModel = Number(this.modelSelected);
     this.vehicleRegister.fuel = Number(this.typeFuel);
 
 
-    this.vehicleService.postVehicle(this.vehicleRegister).subscribe((data: VehicleModel) => { this.vehicleRegister = data;  this.showMsgAddVehicle = ''; this.getterVehicles();}, (err) => { console.log(err) });
+    this.vehicleService.postVehicle(this.vehicleRegister).subscribe((data: VehicleModel) => { this.vehicleRegister = data; this.showMsgAddVehicle  = 'veículo adicionado'}, (err) => { console.log(err) });
+    this.getterVehicles();
   }
 
   deleteVehicle(idVehicle: number) {
-    this.vehicleService.deleteVehicle(idVehicle).subscribe( data => {  this.getterVehicles();});
-
+    this.vehicleService.deleteVehicle(idVehicle).subscribe( data => { this.router.navigate(['register-services']);});
+    this.getterVehicles();
 
   }
 
@@ -144,17 +144,18 @@ export class RegisterServicesComponent implements OnInit {
   }
 
   getterVehicles() {
+    if(this.myServiceRegister !==null && this.myServiceRegister.id !== null ){
 
-    this.vehicleService.getVehicles(11).subscribe((data: ListVehicleModel) => {
-      this.listVehicles = data;
-      (error: any) => {
-        this.erro = error;
-        console.error("ERROR:", error);
-
-      }
-    })
-  }
-
+      this.vehicleService.getVehicles(this.myServiceRegister.id).subscribe((data: ListVehicleModel) => {
+        this.listVehicles = data;
+        (error: any) => {
+          this.erro = error;
+          console.error("ERROR:", error);
+        }
+      })
+    }
+    }
+    
   onItemSelectBranch(item: BranchModel) {
     this.selectedCodBranchs.push(item);
     console.log(this.branchSelected)
@@ -195,7 +196,7 @@ export class RegisterServicesComponent implements OnInit {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       let file: File = fileList[0];
-      this.formData.append('file', file, file.name);
+      this.formData.append('uploadFile', file, file.name);
     }
   }
 
